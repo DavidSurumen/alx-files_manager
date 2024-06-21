@@ -5,12 +5,12 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
 app.use('/', routes);
 
 app.listen(port, () => {
-    console.log(`server listening on port ${port}`);
+  console.log(`server listening on port ${port}`);
 });
 
 export default app;
