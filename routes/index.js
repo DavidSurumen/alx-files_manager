@@ -5,7 +5,7 @@
  * @description This file defines all the API endpoints for the project
  */
 import express from 'express';
-import AppController from '.././controllers/AppController';
+import AppController from '../controllers/AppController';
 
 const router = express.Router();
 
