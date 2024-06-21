@@ -7,8 +7,6 @@
  * in specific collections.
  */
 import { MongoClient } from 'mongodb';
-import { promisify } from 'util';
-
 
 /**
  * @class DBClient
@@ -35,8 +33,8 @@ class DBClient {
       .then(() => {
         this.isConnected = true;
       })
-      .catch(err => {
-        // do nothing
+      .catch(() => {
+        // do nothing. omitted 'error' variable from arguments since it is not used.
       });
   }
 
