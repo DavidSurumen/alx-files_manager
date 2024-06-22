@@ -6,7 +6,9 @@
  * requests
  */
 import crypto from 'crypto';
+import { ObjectId } from 'mongodb';
 import dbClient from '../utils/db';
+import redisClient from '../utils/redis';
 
 /**
  * @class UsersController class to handle user-related operations.
@@ -47,6 +49,27 @@ class UsersController {
       console.log('Error saving user:', err);
       res.status(500).json({ error: 'Didn\'t save. Internal Server Error' });
     }
+  }
+
+  /**
+   * Handles GET requests to '/users/me' to retrieve an active user
+   */
+  static async getMe(req, res) {
+    // extract the request header X-Token
+    const token = req.headers['x-token'];
+    if (!token) {
+      return;
+    }
+
+    const userId = await redisClient.get(`auth_${token}`);
+    if (!userId) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
+    // access the database to retrieve the user email
+    const usersColl = await dbClient.client.db(dbClient.dbName).collection('users');
+    const user = await usersColl.findOne({ _id: new ObjectId(userId) });
+    res.status(200).json({ id: user._id, email: user.email });
   }
 }
 
