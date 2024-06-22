@@ -6,6 +6,7 @@
  */
 import express from 'express';
 import AppController from '../controllers/AppController';
+import UsersController from '../controllers/UsersController';
 
 const router = express.Router();
 
@@ -22,5 +23,11 @@ router.get('/status', AppController.getStatus);
  * @returns {Object} 200 - { "users": 12, "files": 1231 }
  */
 router.get('/stats', AppController.getStats);
+
+/**
+ * POST /users
+ * @summary Adds users to the database
+ */
+router.post('/users', UsersController.postNew);
 
 export default router;
