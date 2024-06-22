@@ -7,6 +7,7 @@
 import express from 'express';
 import AppController from '../controllers/AppController';
 import UsersController from '../controllers/UsersController';
+import AuthController from '../controllers/AuthController';
 
 const router = express.Router();
 
@@ -29,5 +30,26 @@ router.get('/stats', AppController.getStats);
  * @summary Adds users to the database
  */
 router.post('/users', UsersController.postNew);
+
+/**
+ * GET /connect
+ * @summary
+ * @returns
+ */
+router.get('/connect', AuthController.getConnect);
+
+/**
+ * GET /disconnect
+ * @summary
+ * @returns
+ */
+router.get('/disconnect', AuthController.getDisconnect);
+
+/**
+ * GET /users/me
+ * @summary
+ * @returns
+ */
+router.get('/users/me', UsersController.getMe);
 
 export default router;
