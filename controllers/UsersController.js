@@ -58,6 +58,7 @@ class UsersController {
     // extract the request header X-Token
     const token = req.headers['x-token'];
     if (!token) {
+      res.status(401).json({ error: 'Unauthorized' });
       return;
     }
 
